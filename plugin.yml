@@ -1,0 +1,9 @@
+name: BuildKite Spell Check Plugin
+description: Plugin to check spelling
+author: https://github.com/dusura
+requirements: []
+configuration:
+  properties:
+    pattern:
+      type: string
+  additionalProperties: false
