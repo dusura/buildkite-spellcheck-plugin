@@ -1,5 +1,7 @@
 #!/bin/bash
 
+printenv
+
 PATTERN="$BUILDKITE_PLUGIN_SPELL_CHECKER_PATTERN"
 echo $PATTERN
 
