@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker run --rm -ti -v $(pwd):/workdir tmaier/markdown-spellcheck:latest --report "**/*.md" \
+docker run --rm -ti -v $1:/workdir tmaier/markdown-spellcheck:latest --report "**/*.md" \
   | sed '1s/^/```term\n/' \
   | sed '$s/$/\n```/' \
   | buildkite-agent annotate
