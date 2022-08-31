@@ -10,15 +10,19 @@ setup() {
 
 
 @test "spell check" {
+  # given
+  stub docker 'run --rm -ti -v .:/workdir tmaier/markdown-spellcheck:latest --report "**/*.md" : echo 6 spelling errors found in 1 file'
+  stub buildkite-agent 'annotate : cat -'
 
-#  stub run-spell-check ': echo 6 spelling errors found in 1 file'
-  stub docker 'run --rm -ti -v .:/workdir tmaier/markdown-spellcheck:latest --report "**/*.md" : echo 5 spelling errors found in 1 file'
-#stub buildkite-agent 'annotate "Found 1 files matching *.bats" : echo Annotation created'
-
-
+  # when
   run $PWD/spell-check.sh .
 
-  assert_success
+  # then
+  assert_output --partial "term"
   assert_output --partial "6 spelling errors found in 1 file"
-  unstub run-spell-check
+  assert_success
+
+  # cleanup
+  unstub buildkite-agent
+  unstub docker
 }
